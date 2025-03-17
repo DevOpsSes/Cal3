@@ -1,9 +1,21 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: Calc
-  
+  name: "java-calculator"
+  annotations:
+    github.com/project-slug: DevOpsSes/Cal2
+    backstage.io/kubernetes-id: "java-calculator"
 spec:
   type: service
   owner: user:guest
   lifecycle: experimental
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: RRimu   # Must match your GitHub username
+spec:
+  profile:
+    displayName: RRimu
+    email: RRimu
+  memberOf: []
