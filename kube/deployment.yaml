@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: madhurimabb/any:latest
+          image: madhurimabb/new:latest
           ports:
             - containerPort: 8080
