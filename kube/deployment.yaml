@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: your-dockerhub-username/your-image-name:latest
+          image: madhurimabb/any:latest
           ports:
             - containerPort: 8080
