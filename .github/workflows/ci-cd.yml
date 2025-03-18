@@ -41,6 +41,25 @@ jobs:
            password: ${{ secrets.DOCKER_PASS }}
            repository: ${{ secrets.DOCKER_REPO }}
            tag_with_ref: true
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v3
+
+      - name: Configure Kubeconfig
+        run: |
+          echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
+          export KUBECONFIG=$(pwd)/kubeconfig
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl apply -f service.yaml
+          kubectl rollout status deployment/java-app
+
+      - name: Check Pods and Services
+        run: |
+          kubectl get pods
+          kubectl get services
+
 
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
