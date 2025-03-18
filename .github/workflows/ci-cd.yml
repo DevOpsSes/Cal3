@@ -34,25 +34,23 @@ jobs:
     steps:
       -  name: Check out the repo
          uses: actions/checkout@v2
-      -  name: Push to Dockerhub
-         uses: docker/build-push-action@v2
-         with:
-           username: ${{ secrets.DOCKER_USER }}
-           password: ${{ secrets.DOCKER_PASS }}
-           repository: ${{ secrets.DOCKER_REPO }}
-           tag_with_ref: true
-      # - name: Log in to DockerHub
-      #   uses: docker/login-action@v2
-      #   with:
-      #     username: ${{ secrets.DOCKER_USER }}
-      #     password: ${{ secrets.DOCKER_PASS }}
-
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: ${{ secrets.DOCKER_USER }}/new:latest
+      # -  name: Push to Dockerhub
+      #    uses: docker/build-push-action@v2
+      #    with:
+      #      username: ${{ secrets.DOCKER_USER }}
+      #      password: ${{ secrets.DOCKER_PASS }}
+      #      repository: ${{ secrets.DOCKER_REPO }}
+      #      tag_with_ref: true
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: madhurimabb
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+     
+      - name: Build Docker image
+        run: docker build -t my-docker-repo/my-app:latest .
+      - name: Push Docker image
+        run: docker push my-docker-repo/my-app:latest
 
   deploy:
     name: Deploy to Minikube
