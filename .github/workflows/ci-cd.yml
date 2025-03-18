@@ -44,13 +44,21 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          username: ${{ vars.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
+      -  name: Push to Dockerhub
+         uses: docker/build-push-action@v2
+         with:
+           context: .
+           push: true
+           tags: madhurimabb/new:latest
+           secrets: |
+             "github_token=${{secrets.GH_TOKEN }}"
      
-      - name: Build Docker image
-        run: docker build -t my-docker-repo/my-app:latest .
-      - name: Push Docker image
-        run: docker push my-docker-repo/my-app:latest
+      # - name: Build Docker image
+      #   run: docker build -t my-docker-repo/my-app:latest .
+      # - name: Push Docker image
+      #   run: docker push my-docker-repo/my-app:latest
 
   deploy:
     name: Deploy to Minikube
