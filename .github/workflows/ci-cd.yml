@@ -27,6 +27,20 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+  docker:
+    name: Publish Dockerhub
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      -  name: Check out the repo
+         uses: actions/checkout@v2
+      -  name: Push to Dockerhub
+         uses: docker/build-push-action@v2
+         with:
+           username: ${{ secrets.DOCKER_USER }}
+           password: ${{ secrets.DOCKER_PASS }}
+           repository: ${{ secrets.DOCKER_REPO }}
+           tag_with_ref: true
 
     # - name: Publish to GitHub Packages Apache Maven
     #   run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
