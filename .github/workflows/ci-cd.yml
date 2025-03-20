@@ -53,33 +53,33 @@ jobs:
           tags: madhurimabb/backstage-image:latest
           context: .
 
-  # deploy:
-  #   name: Deploy to Minikube
-  #   runs-on: ubuntu-latest
-  #   needs: docker
-  #   steps:
-  #     - name: Check out the repo
-  #       uses: actions/checkout@v2
+  deploy:
+    name: Deploy to Minikube
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
 
-  #     - name: Set up Kubectl
-  #       uses: azure/setup-kubectl@v3
+      - name: Set up Kubectl
+        uses: azure/setup-kubectl@v3
 
-  #     - name: Configure Kubeconfig
-  #       run: |
-  #         mkdir -p $HOME/.kube  # Ensure .kube directory exists
-  #         echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
-  #         chmod 600 $HOME/.kube/config  # Secure the file
+      - name: Configure Kubeconfig
+        run: |
+          mkdir -p $HOME/.kube  # Ensure .kube directory exists
+          echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config  # Secure the file
 
-  #     - name: Deploy to Kubernetes
-  #       run: |
-  #         kubectl apply -f kube/deployment.yaml --validate=false
-  #         kubectl apply -f kube/service.yaml --validate=false
-  #         kubectl rollout status deployment/java-app
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f kube/deployment.yaml --validate=false
+          kubectl apply -f kube/service.yaml --validate=false
+          kubectl rollout status deployment/java-app
 
-  #     - name: Check Pods and Services
-  #       run: |
-  #         kubectl get pods
-  #         kubectl get services
+      - name: Check Pods and Services
+        run: |
+          kubectl get pods
+          kubectl get services
 
 
 
