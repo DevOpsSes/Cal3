@@ -66,8 +66,12 @@ jobs:
 
       - name: Configure Kubeconfig
         run: |
-         echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig
+         echo "${{ secrets.KUBE_CONFIG }}" > kubeconfig | base64 --decode > kubeconfig
          export KUBECONFIG=$(pwd)/kubeconfig
+      - name: Verify Kubeconfig
+        run: |
+          cat kubeconfig
+          kubectl config view
 
       - name: Deploy to Kubernetes
         run: |
