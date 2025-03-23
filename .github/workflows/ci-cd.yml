@@ -54,34 +54,61 @@ jobs:
           context: .
 
   deploy:
-    name: Deploy to Minikube
-    runs-on: ubuntu-latest
+    # name: Deploy to Minikube
+    # runs-on: ubuntu-latest
     needs: docker
+    # steps:
+    #   - name: Check out the repo
+    #     uses: actions/checkout@v2
+
+    #   - name: Configure Kubeconfig
+    #     run: |
+    #       echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > kubeconfig
+    #     env:
+    #      KUBECONFIG: ${{ github.workspace }}/kubeconfig
+
+    #   - name: Verify Kubeconfig
+    #     run: |
+    #       cat kubeconfig
+    #       kubectl config view
+
+    #   - name: Deploy to Kubernetes
+    #     run: |
+    #       kubectl apply -f kube/deployment.yaml --validate=false
+    #       kubectl apply -f kube/service.yaml --validate=false
+    #       kubectl rollout status deployment/java-app
+
+    #   - name: Check Pods and Services
+    #     run: |
+    #       kubectl get pods
+    #       kubectl get services
+
+  
+
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Configure Kubeconfig
-        run: |
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > kubeconfig
-        env:
-         KUBECONFIG: ${{ github.workspace }}/kubeconfig
+      - name: Set up Minikube
+        uses: manusa/actions-setup-minikube@v2.4.0
+        with:
+          minikube version: 'latest'
+          driver: 'docker'
 
-      - name: Verify Kubeconfig
-        run: |
-          cat kubeconfig
-          kubectl config view
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t myapp:latest .madhurimabb/backstage-image
 
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f kube/deployment.yaml --validate=false
-          kubectl apply -f kube/service.yaml --validate=false
-          kubectl rollout status deployment/java-app
 
-      - name: Check Pods and Services
+      - name: Load image into Minikube
         run: |
-          kubectl get pods
-          kubectl get services
+          minikube image load backstage-image:latest
+
+      - name: Deploy to Minikube
+        run: |
+          kubectl apply -f kube/deployment.yaml
+          kubectl rollout status deployment/backstage-image-deployment
+          kubectl get services -o wide
 
 
 
