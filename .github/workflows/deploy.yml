@@ -37,8 +37,14 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         mkdir -p $HOME/.minikube
+        cp /home/runner/.kube/config $HOME/.kube/config
+        cp -R /home/runner/.minikube/* $HOME/.minikube/
         sudo chown -R $USER $HOME/.kube $HOME/.minikube
-        kubectl config use-context minikube
+        # Verify Minikube status
+        minikube status
+        # Set Minikube context
+        kubectl config use-context minikube || minikube update-context
+        
 
     - name: Deploy to Minikube
       run: |
