@@ -87,6 +87,8 @@ jobs:
           kubectl apply -f kube/deployment.yaml
           kubectl apply -f kube/service.yaml
           kubectl get pods
+          kubectl get services
+
 
   
   
