@@ -37,12 +37,10 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         mkdir -p $HOME/.minikube
-        cp -R ~/.kube $HOME/.kube
-        cp -R ~/.minikube $HOME/.minikube
         sudo chown -R $USER $HOME/.kube $HOME/.minikube
         kubectl config use-context minikube
 
     - name: Deploy to Minikube
       run: |
-        kubectl apply -f k8s/deployment.yml
+        kubectl apply -f kube/deployment.yml
         kubectl rollout status deployment/java-app
