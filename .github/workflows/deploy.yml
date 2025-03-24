@@ -37,8 +37,8 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         mkdir -p $HOME/.minikube
-        cp /home/runner/.kube/config $HOME/.kube/config
-        cp -R /home/runner/.minikube/* $HOME/.minikube/
+        cp /home/madhurima/.kube/config $HOME/.kube/config
+        cp -R /home/madhurima/.minikube/* $HOME/.minikube/
         sudo chown -R $USER $HOME/.kube $HOME/.minikube
         # Verify Minikube status
         minikube status
