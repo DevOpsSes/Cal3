@@ -37,8 +37,8 @@ jobs:
       run: |
         mkdir -p $HOME/.kube
         mkdir -p $HOME/.minikube
-        cp -R /mnt/c/Users/User/.kube $HOME/.kube
-        cp -R /mnt/c/Users/User/.minikube $HOME/.minikube
+        cp -R ~/.kube $HOME/.kube
+        cp -R ~/.minikube $HOME/.minikube
         sudo chown -R $USER $HOME/.kube $HOME/.minikube
         kubectl config use-context minikube
 
