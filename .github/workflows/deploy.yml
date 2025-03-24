@@ -23,8 +23,8 @@ jobs:
        password: ${{ secrets.DOCKER_HUB_TOKEN }}
     - name: Build and push Docker image
       run: |
-        docker build -t ${{ secrets.DOCKER_USERNAME }}/backstage-image:latest .
-        docker push ${{ secrets.DOCKER_USERNAME }}/backstage-image:latest
+        docker build -t ${{ secrets.DOCKER_HUB_TOKEN }}/backstage-image:latest .
+        docker push ${{ secrets.DOCKER_HUB_TOKEN }}/backstage-image:latest
 
     - name: Set up kubectl to use Minikube
       run: |
