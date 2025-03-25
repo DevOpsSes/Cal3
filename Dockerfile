@@ -1,13 +1,4 @@
-# Build Stage
-FROM maven:3.6.3-jdk-11-slim AS build
-RUN mkdir -p /workspace
-WORKDIR /workspace
-COPY pom.xml /workspace
-COPY src /workspace/src
-RUN mvn -B -f pom.xml clean package -DskipTests
-
-# Deploy Stage
-FROM openjdk:11-jdk-slim
-COPY --from=build /workspace/target/*.war gitopsdemocalcproject.war
+FROM tomcat:latest
+COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "gitopsdemocalcproject.war"]
+ENTRYPOINT ["catalina.sh", "run"]
