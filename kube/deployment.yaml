@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: java-calculator-deployment
+  name: java-calculator-deployment
 spec:
- selector:
-   matchLabels:
-     app: java-calculator
- replicas: 2 # tells deployment to run 2 pods matching the template
- template:
-   metadata:
-     labels:
-       app: java-calculator
-   spec:
-     containers:
-     - name: java-calculator
-       image: madhurimabb/backstage-image:latest
-       ports:
-       - containerPort: 80
+  selector:
+    matchLabels:
+      app: java-calculator
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: java-calculator
+    spec:
+      containers:
+      - name: java-calculator
+        image: madhurimabb/backstage-image:latest  # Make sure this matches your built image
+        ports:
+        - containerPort: 8080  # Must match the port in Dockerfile (EXPOSE 8080)
