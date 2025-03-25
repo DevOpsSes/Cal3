@@ -8,4 +8,4 @@ RUN mvn -B -f pom.xml clean package -DskipTests
 FROM openjdk:11-jdk-slim
 COPY --from=build /workspace/target/*.war gitopsdemocalcproject.war
 EXPOSE 8080
-ENTRYPOINT ["java","-war","cal.war"]
+ENTRYPOINT ["java","-jar","cal.jar"]
