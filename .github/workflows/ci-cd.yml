@@ -50,7 +50,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: madhurimabb/backstage-image:latest
+          tags: |
+            madhurimabb/backstage-image:latest
+            madhurimabb/backstage-image:${{ github.run_number }}
           context: .
   deploy:
     runs-on: ubuntu-latest
