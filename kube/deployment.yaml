@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: java-calculator-deployment
+  labels:
+    backstage.io/kubernetes-id: java-calculator
 spec:
   selector:
     matchLabels:
