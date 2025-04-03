@@ -4,7 +4,7 @@ metadata:
   name: "java-calculator"
   annotations:
     github.com/project-slug: DevOpsSes/Cal3
-    backstage.io/kubernetes-id: "java-app"
+    backstage.io/kubernetes-id: "java-calculator"
 spec:
   type: service
   owner: user:guest
