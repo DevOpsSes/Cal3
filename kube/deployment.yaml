@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: java-calculator
-        image: madhurimabb/backstage-image:63  # Make sure this matches your built image
+        image: madhurimabb/backstage-image:65  # Make sure this matches your built image
         ports:
         - containerPort: 8080  # Must match the port in Dockerfile (EXPOSE 8080)
