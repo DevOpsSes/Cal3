@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: java-calculator
   labels:
-    backstage.io/kubernetes-id: java-calculator
+    app: java-calculator
 spec:
   selector:
     matchLabels:
@@ -13,6 +13,7 @@ spec:
     metadata:
       labels:
         app: java-calculator
+        backstage.io/kubernetes-id: java-calculator
     spec:
       containers:
       - name: java-calculator
