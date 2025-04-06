@@ -56,12 +56,12 @@ jobs:
             madhurimabb/backstage-image:latest
             madhurimabb/backstage-image:${{ github.run_number }}
           context: .
-  # deploy:
-  #   runs-on: ubuntu-latest
-  #   needs: docker
-  #   steps:
-  #     - name: Checkout Code
-  #       uses: actions/checkout@v4
+  deploy:
+    runs-on: ubuntu-latest
+    needs: docker
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
   #     - name: Set up Minikube
   #       run: |
@@ -86,12 +86,13 @@ jobs:
   #         docker build -t backstage-image:latest .
   #         minikube image load backstage-image:latest
 
-  #     - name: Apply Kubernetes Manifests
-  #       run: |
-  #         kubectl apply -f kube/deployment.yaml
-  #         kubectl apply -f kube/service.yaml
-  #         kubectl get pods
-  #         kubectl get services
+      - name: Apply Kubernetes Manifests
+        run: |
+           kubectl port-forward svc/argocd-server -n argocd 8080:443
+          # kubectl apply -f kube/deployment.yaml
+          # kubectl apply -f kube/service.yaml
+          # kubectl get pods
+          # kubectl get services
 
 
   
